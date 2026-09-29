@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>টিটি শপ</title>
+    <style>
+        .btn {
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+        form {
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: auto;
+        }
+        input[type=text], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+    <script>
+        function updateDeliveryCharge() {
+            var location = document.getElementById("location").value;
+            var charge = 0;
+            if (location === "dhaka_inside") {
+                charge = 80;
+            } else if (location === "dhaka_outside") {
+                charge = 120;
+            }
+            document.getElementById("deliveryCharge").innerText = charge + " টাকা";
+            calculateTotal(charge);
+        }
+
+        function calculateTotal(deliveryCharge) {
+            var productPrice = 500;
+            var total = productPrice + deliveryCharge;
+            document.getElementById("totalPrice").innerText = total + " টাকা";
+        }
+    </script>
+</head>
+<body onload="updateDeliveryCharge()">
+    <h1>টিটি শপের প্রোডাক্টস</h1>
+    <div>
+        <h2>টি-শার্ট</h2>
+        <p>দাম: ৫০০ টাকা</p>
+        <button class="btn" onclick="document.getElementById('orderForm').style.display='block'">অর্ডার করুন</button>
+    </div>
+
+    <div id="orderForm" style="display:none;">
+        <h3>আপনার তথ্য দিন</h3>
+        <form action="#" method="post">
+            <label for="name">নাম:</label>
+            <input type="text" id="name" name="name" placeholder="আপনার নাম লিখুন" required>
+
+            <label for="address">ঠিকানা:</label>
+            <input type="text" id="address" name="address" placeholder="আপনার ঠিকান লিখুন" required>
+
+            <label for="phone">ফোন নম্বর:</label>
+            <input type="text" id="phone" name="phone" placeholder="আপনার ফোন নম্বর লিখুন" required>
+            
+            <label for="location">ডেলিভারি এলাকা:</label>
+            <select id="location" name="location" onchange="updateDeliveryCharge()">
+                <option value="dhaka_inside">ঢাকার ভিতরে</option>
+                <option value="dhaka_outside">ঢাকার বাইরে</option>
+            </select>
+            
+            <p>ডেলিভারি চার্জ: <span id="deliveryCharge"></span></p>
+            <p>মোট মূল্য: <span id="totalPrice"></span></p>
+
+            <label for="payment">পেমেন্ট মেথড:</label>
+            <select id="payment" name="payment">
+                <option value="cod">ক্যাশ অন ডেলিভারি</option>
+                <option value="bkash">বিকাশ পেমেন্ট</option>
+            </select>
+            
+            <p>বিকাশ নাম্বার: 01XXXXXXX (পেমেন্ট করে ট্রানজেকশন আইডি দিন)</p>
+            <input type="text" id="trxId" name="trxId" placeholder="ট্রানজেকশন আইডি (প্রযোজ্য ক্ষেত্রে)">
+
+            <button class="btn" type="submit">কনফার্ম অর্ডার</button>
+        </form>
+    </div>
+</body>
+</html>
